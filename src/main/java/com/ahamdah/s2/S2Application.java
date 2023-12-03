@@ -32,7 +32,10 @@ public class S2Application implements CommandLineRunner {
 //        var b= transactionRepository.findAll();
 //        b.forEach(System.out::println);
         System.out.println("Systm is running");
-//        var x=transactionRepository.findBySenderNative("12795");
-//        x.forEach(System.out::println);
+        var x=transactionRepository.findTransactionBySender_idNativeQuery("12795");
+        x.forEach(System.out::println);
+        var y =transactionRepository.findAllNative();
+        y.forEach(System.out::println);
+        System.out.println(y.size());
     }
 }

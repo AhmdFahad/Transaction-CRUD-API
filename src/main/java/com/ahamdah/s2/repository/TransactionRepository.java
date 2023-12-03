@@ -10,5 +10,13 @@ import java.util.Collection;
 import java.util.List;
 
 public interface TransactionRepository extends ElasticsearchRepository<Transaction,String> {
+
+    @Query("{\"match\": {\"sender_id\": {\"query\": \"?0\"}}}")
+    Collection<Transaction> findTransactionBySender_idNativeQuery(String sender_id);
+
+    @Query("{\"match_all\": {}}")
+    Collection<Transaction> findAllNative();
+
+
 }
 
