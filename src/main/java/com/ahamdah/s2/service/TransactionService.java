@@ -7,6 +7,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.elasticsearch.core.suggest.response.SortBy;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -57,4 +59,14 @@ public class TransactionService {
         Pageable pageable= PageRequest.of(pageNumber,size);
         return transactionRepository.findAll(pageable);
     }
+    public List<Transaction> transactionsSorting(String sort,String d){
+        var direction=Sort.Direction.ASC;
+        if(!d.equals("ASC"))
+            direction=Sort.Direction.DESC;
+        List<Transaction> list=new ArrayList<>();
+        var x=transactionRepository.findAll(Sort.by(direction,sort));
+        x.forEach(list::add);
+        return list;
+    }
+
 }

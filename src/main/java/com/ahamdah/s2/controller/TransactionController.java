@@ -59,8 +59,12 @@ public class TransactionController {
         return  new ResponseEntity<>("Transaction update it",HttpStatus.OK);
     }
     @GetMapping("/page/{pageNumber}")
-    public Page<Transaction> getArticle(@PathVariable int pageNumber, @RequestParam(name = "size") int size){
+    public Page<Transaction> pagenation(@PathVariable int pageNumber, @RequestParam(name = "size") int size){
         return transactionService.pagableTransaction(pageNumber,size);
     }
-    
+    @GetMapping("/sort")
+    public List<Transaction> sorting(@RequestParam(required = false,defaultValue = "amount") String sort,@RequestParam(required = false,defaultValue = "ASC") String direction){
+        return transactionService.transactionsSorting(sort,direction.toUpperCase());
+    }
+
 }
