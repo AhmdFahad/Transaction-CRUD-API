@@ -5,6 +5,10 @@ import com.ahamdah.s2.exception.NotFoundException;
 import com.ahamdah.s2.model.Transaction;
 import com.ahamdah.s2.service.TransactionService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
@@ -54,4 +58,9 @@ public class TransactionController {
         transactionService.update(id ,transaction);
         return  new ResponseEntity<>("Transaction update it",HttpStatus.OK);
     }
+    @GetMapping("/page/{pageNumber}")
+    public Page<Transaction> getArticle(@PathVariable int pageNumber, @RequestParam(name = "size") int size){
+        return transactionService.pagableTransaction(pageNumber,size);
+    }
+    
 }

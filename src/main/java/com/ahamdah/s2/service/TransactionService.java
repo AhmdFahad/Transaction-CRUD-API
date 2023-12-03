@@ -4,6 +4,9 @@ import com.ahamdah.s2.exception.NotFoundException;
 import com.ahamdah.s2.model.Transaction;
 import com.ahamdah.s2.repository.TransactionRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -49,5 +52,9 @@ public class TransactionService {
         transaction1.setAmount(transaction.getAmount());
         transaction1.setStatus(transaction.getStatus());
         transactionRepository.save(transaction1);
+    }
+    public Page<Transaction> pagableTransaction(int pageNumber, int size){
+        Pageable pageable= PageRequest.of(pageNumber,size);
+        return transactionRepository.findAll(pageable);
     }
 }
